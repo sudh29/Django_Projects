@@ -1,6 +1,6 @@
 # 📝 Django Blog Application
 
-Assignment details : "project2/ASSIGNMENT.md"
+- 📄 [View Assignment details](project2/ASSIGNMENT.md)
 
 A simple blog application built using **Django** and **Django REST Framework** that supports CRUD operations, token-based user authentication, and optional frontend integration using either Django templates or React.
 
