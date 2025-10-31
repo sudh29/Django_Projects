@@ -1,0 +1,102 @@
+# ==========================================
+# 🧠 Python / Django
+# ==========================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+*.log
+*.sqlite3
+*.db
+*.pot
+*.py,cover
+*.mo
+*.po
+
+# ==========================================
+# 🧰 Virtual Environments
+# ==========================================
+venv/
+.venv/
+env/
+ENV/
+.Python
+
+# ==========================================
+# 🧪 Tests, coverage, and dev tools
+# ==========================================
+.coverage
+coverage.xml
+htmlcov/
+pytest_cache/
+.tox/
+.mypy_cache/
+.pytest_cache/
+.dmypy.json
+.cache/
+ruff_cache/
+.idea/
+.vscode/
+.editorconfig
+
+# ==========================================
+# 🪣 OS / System / Temp
+# ==========================================
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+*.swo
+*.tmp
+*.orig
+*.old
+
+# ==========================================
+# 🚀 Django specific runtime files
+# ==========================================
+staticfiles/
+media/
+collectstatic/
+tmp/
+logs/
+celerybeat-schedule
+celerybeat.pid
+
+# ==========================================
+# 🧩 Git & Docker
+# ==========================================
+.git/
+.gitignore
+.dockerignore
+docker-compose*.yml
+Dockerfile.dev
+Dockerfile.test
+
+# ==========================================
+# 🧱 Node / Frontend (if using React or Vue)
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+build/
+dist/
+*.map
+
+# ==========================================
+# 🧾 Misc
+# ==========================================
+*.ini
+*.cfg
+*.toml
+*.json
+*.yml
+*.yaml
+*.md
+LICENSE
+README*

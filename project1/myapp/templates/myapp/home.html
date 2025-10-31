@@ -1,11 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Basic Django App</title>
-</head>
-<body>
-    <h1>Hello, Django World!</h1>
-    <p>This page was rendered by our 'greeter' app.</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Django | Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .hero {
+        background: linear-gradient(135deg, #2d7af3, #44bd32);
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 2rem;
+      }
+      .feature-box {
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+      }
+      .feature-box:hover {
+        transform: translateY(-5px);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Django App</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero text-center">
+      <div class="container">
+        <h1 class="display-4">Hello, Django World!</h1>
+        <p class="lead">Welcome to our modern Django application</p>
+      </div>
+    </section>
+
+    <main class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-box bg-light">
+            <h3>Fast Development</h3>
+            <p>
+              Django makes it easier to build better web apps more quickly and
+              with less code.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box bg-light">
+            <h3>Secure by Default</h3>
+            <p>
+              Django takes security seriously and helps developers avoid many
+              common security mistakes.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box bg-light">
+            <h3>Scalable</h3>
+            <p>
+              Django can scale to meet the heaviest traffic demands and handle
+              any size of content.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-dark text-white mt-5 py-4">
+      <div class="container text-center">
+        <p>© 2025 Django App. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
