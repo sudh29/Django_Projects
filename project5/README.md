@@ -118,20 +118,20 @@ A comprehensive Django project focused on user authentication and profile manage
 
 ```bash
 # Build the Docker image
-docker build -t django-project4 .
+docker build -t django-project5 .
 
 # Run the container
 docker run -d -p 8000:8080 \
-  --name django-project4 \
-  -e DJANGO_SETTINGS_MODULE=Project4.settings \
-  django-project4
+  --name django-project5 \
+  -e DJANGO_SETTINGS_MODULE=Project5.settings \
+  django-project5
 
 # View logs
-docker logs -f django-project4
+docker logs -f django-project5
 
 # Stop and remove
-docker stop django-project4
-docker rm django-project4
+docker stop django-project5
+docker rm django-project5
 ```
 
 ### Development Tools
