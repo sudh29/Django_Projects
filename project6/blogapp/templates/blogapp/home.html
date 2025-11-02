@@ -1,0 +1,874 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A modern blog platform built with Django and Django REST Framework">
+    <title>BlogApp — Modern Blogging with Django & DRF</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}">
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+
+    <!-- AOS Animation -->
+    <link
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+      rel="stylesheet"
+    >
+
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-hover: #4338ca;
+        --secondary: #6b7280;
+        --light: #f9fafb;
+        --light-gray: #f3f4f6;
+        --dark: #111827;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --border-radius: 0.5rem;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        background-color: var(--light);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        padding: 1rem 0;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--primary) !important;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .navbar-brand i {
+        font-size: 1.8rem;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        color: var(--dark) !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+      }
+
+      .nav-link:hover, .nav-link.active {
+        color: var(--primary) !important;
+        background: rgba(79, 70, 229, 0.05);
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-radius: 1.5rem;
+        margin: 2rem 0 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234f46e5' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        font-size: 3.5rem;
+        line-height: 1.2;
+        background: linear-gradient(90deg, #4f46e5, #7c3aed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        color: #4b5563;
+        font-size: 1.25rem;
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+        opacity: 0.9;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-outline-primary {
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .btn-outline-primary:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+      }
+
+      /* Feature Cards */
+      .section-title {
+        text-align: center;
+        margin-bottom: 3.5rem;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title h2::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), #7c3aed);
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+
+      .section-title p {
+        color: var(--secondary);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .feature-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        background-color: #fff;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        overflow: hidden;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .feature-card .card-body {
+        padding: 2rem;
+      }
+
+      .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(79, 70, 229, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-card .icon-wrapper i {
+        font-size: 1.75rem;
+        color: var(--primary);
+      }
+
+      .feature-card h5 {
+        color: var(--dark);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+      }
+
+      .feature-card p {
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-card .card-link {
+        color: var(--primary);
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: var(--transition);
+      }
+
+      .feature-card .card-link i {
+        margin-left: 0.5rem;
+        transition: var(--transition);
+      }
+
+      .feature-card .card-link:hover {
+        color: var(--primary-hover);
+      }
+
+      .feature-card .card-link:hover i {
+        transform: translateX(4px);
+      }
+
+      /* Footer */
+      footer {
+        background-color: #ffffff;
+        color: #64748b;
+        padding: 1.5rem 0;
+        font-size: 0.9rem;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .btn-primary {
+        background-color: var(--brand-color);
+        border-color: var(--brand-color);
+      }
+
+      .btn-primary:hover {
+        background-color: #1e40af;
+        border-color: #1e40af;
+      }
+
+      /* Quick Links */
+      .list-unstyled li {
+        margin-bottom: 0.5rem;
+      }
+      .list-unstyled a {
+        color: var(--brand-color);
+        transition: color 0.2s ease;
+      }
+      .list-unstyled a:hover {
+        color: #1e40af;
+        text-decoration: underline;
+      }
+
+      /* Link Cards */
+      .border.rounded {
+        border-color: #e2e8f0 !important;
+        transition: all 0.2s ease;
+      }
+      .border.rounded:hover {
+        border-color: var(--brand-color) !important;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+      }
+      .border.rounded h6 {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      .border.rounded a strong {
+        color: var(--brand-color);
+      }
+      .border.rounded a:hover strong {
+        color: #1e40af;
+      }
+      .border.rounded small {
+        font-size: 0.85rem;
+        color: #64748b;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-blog"></i>
+          <span>BlogApp</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+          aria-controls="navbarMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'post_list' %}">
+                <i class="fas fa-home me-1"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'post_list' %}">
+                <i class="far fa-newspaper me-1"></i> Posts
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/posts/">
+                <i class="fas fa-code me-1"></i> API
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/">
+                <i class="fas fa-cog me-1"></i> Admin
+              </a>
+            </li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+              <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">
+                Get Started <i class="fas fa-arrow-right ms-1"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 hero-content" data-aos="fade-right">
+            <h1>Modern Blogging Platform</h1>
+            <p class="lead">
+              A powerful, feature-rich blog built with Django and Django REST Framework.
+              Create, manage, and share your content with ease or integrate with other
+              applications using our comprehensive API.
+            </p>
+            <div class="hero-buttons">
+              <a href="{% url 'post_list' %}" class="btn btn-primary btn-lg px-4 py-2">
+                <i class="far fa-newspaper me-2"></i> Explore Posts
+              </a>
+              <a href="/api/posts/" class="btn btn-outline-primary btn-lg px-4 py-2">
+                <i class="fas fa-code me-2"></i> API Documentation
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
+            <div class="position-relative">
+              <div class="position-relative" style="z-index: 2;">
+                <img
+                  src="{% static 'img/blog-illustration.svg' %}"
+                  alt="Blog illustration"
+                  class="img-fluid"
+                  onerror="this.src='https://via.placeholder.com/600x400/f8fafc/4f46e5?text=Blog+App'"
+                >
+              </div>
+              <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary rounded-3" style="opacity: 0.1; z-index: 1; transform: rotate(5deg) translate(10px, 10px);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container my-5 py-5">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Powerful Features</h2>
+        <p>Everything you need to create and manage your blog content effectively</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-card card h-100">
+            <div class="card-body text-center text-md-start">
+              <div class="icon-wrapper mx-auto mx-md-0">
+                <i class="fas fa-edit"></i>
+              </div>
+              <h5>Rich Text Editor</h5>
+              <p>Create beautiful blog posts with our intuitive rich text editor. Format text, add images, and embed media with ease.</p>
+              <a href="#" class="card-link">
+                Learn more <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-card card h-100">
+            <div class="card-body text-center text-md-start">
+              <div class="icon-wrapper mx-auto mx-md-0">
+                <i class="fas fa-lock"></i>
+              </div>
+              <h5>Secure Authentication</h5>
+              <p>JWT-based authentication ensures your data is secure. Manage user roles and permissions with ease.</p>
+              <a href="#" class="card-link">
+                Learn more <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-card card h-100">
+            <div class="card-body text-center text-md-start">
+              <div class="icon-wrapper mx-auto mx-md-0">
+                <i class="fas fa-code"></i>
+              </div>
+              <h5>RESTful API</h5>
+              <p>Integrate with other applications using our comprehensive REST API. Full documentation included.</p>
+              <a href="/api/posts/" class="card-link">
+                View API <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-card card h-100">
+            <div class="card-body text-center text-md-start">
+              <div class="icon-wrapper mx-auto mx-md-0">
+                <i class="fas fa-comment-dots"></i>
+              </div>
+              <h5>Comments System</h5>
+              <p>Engage with your audience through our built-in comments system. Moderate and manage discussions easily.</p>
+              <a href="{% url 'post_list' %}" class="card-link">
+                See example <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-card card h-100">
+            <div class="card-body text-center text-md-start">
+              <div class="icon-wrapper mx-auto mx-md-0">
+                <i class="fas fa-tachometer-alt"></i>
+              </div>
+              <h5>Admin Dashboard</h5>
+              <p>Powerful admin interface to manage all aspects of your blog, from posts and comments to user accounts.</p>
+              <a href="/admin/" class="card-link">
+                Go to Admin <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-card card h-100">
+            <div class="card-body text-center text-md-start">
+              <div class="icon-wrapper mx-auto mx-md-0">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <h5>Fully Responsive</h5>
+              <p>Looks great on any device, from desktop computers to mobile phones. Your content is always accessible.</p>
+              <a href="#" class="card-link">
+                Try it now <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+              <h5>For Developers</h5>
+              <p>
+                Integrate the REST API with external apps or services. Full
+                CRUD, JWT authentication, and browsable API support out of the
+                box.
+              </p>
+              <div class="d-flex flex-column gap-2 mt-3">
+                <a href="/api/posts/" class="btn btn-sm btn-outline-primary">
+                  🔍 Browse API
+                </a>
+                <a href="{% url 'token_obtain_pair' %}" class="btn btn-sm btn-primary">
+                  🔑 Get JWT Token
+                </a>
+                <a href="{% url 'token_refresh' %}" class="btn btn-sm btn-outline-secondary">
+                  🔄 Refresh Token
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="feature-card card p-4 h-100">
+            <div class="card-body">
+              <h5>For Editors</h5>
+              <p>
+                Use the clean GUI to create, edit, and manage your posts. Fast,
+                intuitive, and built for productivity.
+              </p>
+              <a href="{% url 'post_list' %}" class="card-link">Open GUI →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="container mb-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="feature-card card p-4">
+            <div class="card-body">
+              <h5 class="mb-4">🔗 All Project Links</h5>
+              <div class="row g-4">
+                <!-- Authentication -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded p-3 h-100">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                      <span class="me-2">🔐</span> Authentication
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <a href="{% url 'token_obtain_pair' %}" class="text-decoration-none">
+                          <strong>Get JWT Token</strong>
+                          <br><small class="text-muted">/api/token/</small>
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="{% url 'token_refresh' %}" class="text-decoration-none">
+                          <strong>Refresh Token</strong>
+                          <br><small class="text-muted">/api/token/refresh/</small>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Posts API -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded p-3 h-100">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                      <span class="me-2">📝</span> Posts API
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <a href="{% url 'post-list-create' %}" class="text-decoration-none">
+                          <strong>List/Create Posts</strong>
+                          <br><small class="text-muted">/api/posts/</small>
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="/api/posts/" class="text-decoration-none">
+                          <strong>Browsable API</strong>
+                          <br><small class="text-muted">Interactive API browser</small>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Comments API -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded p-3 h-100">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                      <span class="me-2">💬</span> Comments API
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <span class="text-muted">
+                          <strong>List/Create Comments</strong>
+                          <br><small>/api/posts/{id}/comments/</small>
+                        </span>
+                      </li>
+                      <li class="mb-2">
+                        <span class="text-muted">
+                          <strong>Delete Comment</strong>
+                          <br><small>/api/posts/{id}/comments/{comment_id}/</small>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- GUI Views -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded p-3 h-100">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                      <span class="me-2">🖥️</span> GUI Views
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <a href="{% url 'post_list' %}" class="text-decoration-none">
+                          <strong>Posts List (GUI)</strong>
+                          <br><small class="text-muted">/posts/gui</small>
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <span class="text-muted">
+                          <strong>Post Detail (GUI)</strong>
+                          <br><small>/posts/gui/{id}/</small>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Management -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded p-3 h-100">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                      <span class="me-2">⚙️</span> Management
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <a href="/admin/" class="text-decoration-none">
+                          <strong>Admin Interface</strong>
+                          <br><small class="text-muted">/admin/</small>
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="{% url 'home' %}" class="text-decoration-none">
+                          <strong>Home Page</strong>
+                          <br><small class="text-muted">/</small>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Additional Features -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="border rounded p-3 h-100">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                      <span class="me-2">✨</span> Additional Features
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <span class="text-muted">
+                          <strong>Like Post</strong>
+                          <br><small>POST /api/posts/{id}/like/</small>
+                        </span>
+                      </li>
+                      <li class="mb-2">
+                        <span class="text-muted">
+                          <strong>Post Detail/Update/Delete</strong>
+                          <br><small>/api/posts/{id}/</small>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- API Documentation Note -->
+              <div class="alert alert-info mt-4 mb-0" role="alert">
+                <strong>💡 Tip:</strong> All API endpoints support JSON responses. Use JWT tokens for authenticated requests.
+                See the <a href="/api/posts/" class="alert-link">Browsable API</a> for interactive documentation and testing.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div
+        class="container d-flex justify-content-between flex-wrap text-center text-md-start"
+      >
+        <small
+          >&copy; 2025 <strong>BlogApp</strong>. All rights reserved.</small
+        >
+        <small>Built with ❤️ using Django, DRF & Bootstrap 5.</small>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-4"><i class="fas fa-blog me-2"></i> BlogApp</h5>
+            <p class="text-muted">
+              A modern, feature-rich blogging platform built with Django and Django REST Framework.
+              Create, manage, and share your content with ease.
+            </p>
+            <div class="social-links mt-4">
+              <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+              <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+              <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+              <a href="#" class="text-white"><i class="fab fa-product-hunt fa-lg"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-4">
+            <h6 class="mb-4">Quick Links</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a href="{% url 'post_list' %}" class="text-muted text-decoration-none">Home</a></li>
+              <li class="mb-2"><a href="{% url 'post_list' %}" class="text-muted text-decoration-none">Blog Posts</a></li>
+              <li class="mb-2"><a href="/api/posts/" class="text-muted text-decoration-none">API</a></li>
+              <li class="mb-2"><a href="/admin/" class="text-muted text-decoration-none">Admin</a></li>
+              <li><a href="#" class="text-muted text-decoration-none">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <h6 class="mb-4">Resources</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Documentation</a></li>
+              <li class="mb-2"><a href="#" class="text-muted text-decoration-none">API Reference</a></li>
+              <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Tutorials</a></li>
+              <li><a href="#" class="text-muted text-decoration-none">Support</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <h6 class="mb-4">Newsletter</h6>
+            <p class="text-muted">Subscribe to our newsletter for the latest updates and news.</p>
+            <form class="mt-3">
+              <div class="input-group">
+                <input type="email" class="form-control" placeholder="Your email" aria-label="Your email">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <hr class="my-4 bg-secondary">
+
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start">
+            <p class="mb-0 text-muted">&copy; {% now "Y" %} BlogApp. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <a href="#" class="text-muted text-decoration-none me-3">Privacy Policy</a>
+            <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button onclick="topFunction()" id="backToTop" class="btn btn-primary rounded-circle" title="Go to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"></script>
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom Scripts -->
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+
+      // Back to top button
+      const backToTopButton = document.getElementById("backToTop");
+
+      // When the user scrolls down 20px from the top, show the button
+      window.onscroll = function() {
+        scrollFunction();
+        navbarScroll();
+      };
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          backToTopButton.style.display = "block";
+        } else {
+          backToTopButton.style.display = "none";
+        }
+      }
+
+      // Navbar scroll effect
+      function navbarScroll() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+      // Initialize tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+  </body>
+</html>
