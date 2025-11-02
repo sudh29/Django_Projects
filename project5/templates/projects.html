@@ -1,0 +1,499 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects{% endblock title %}
+{% block projectactive %}active{% endblock projectactive %}
+
+{% block extra_css %}
+<style>
+  .projects-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .project-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  }
+
+  .project-image {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 4rem;
+  }
+
+  .project-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    margin: 0.25rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1.5rem;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+  }
+
+  .projects-section {
+    padding: 4rem 0;
+  }
+
+  .section-bg-light {
+    background-color: #f8f9fa;
+  }
+
+  .project-stats {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+</style>
+{% endblock extra_css %}
+
+{% block body %}
+  <!-- Hero Section -->
+  <section class="projects-hero">
+    <div class="container">
+      <h1 class="display-4 mb-3">My Projects</h1>
+      <p class="lead">Explore my portfolio of AI-driven automation platforms, healthcare solutions, and telecom optimization systems</p>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects-section section-bg-light">
+    <div class="container">
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+        <button class="filter-btn" data-filter="telecom">Telecom</button>
+        <button class="filter-btn" data-filter="ai-ml">AI/ML</button>
+        <button class="filter-btn" data-filter="automation">Automation</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="row g-4">
+        <!-- Project 1 -->
+        <div class="col-md-6 col-lg-4" data-category="healthcare ai-ml automation">
+          <div class="project-card card">
+            <div class="project-image">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">RCM Automation Platform</h4>
+              <p class="card-text text-muted">
+                Next-generation Revenue Cycle Management automation platform for U.S. healthcare networks.
+                Features full-cycle automation of RCM workflows including Pre-Authorization, Eligibility Verification,
+                Claims Processing, Payment Posting, and Denials Management. Built with RAG pipeline for high-accuracy document extraction.
+              </p>
+              <div class="mb-3">
+                <span class="project-badge">FastAPI</span>
+                <span class="project-badge">RAG</span>
+                <span class="project-badge">OpenAI LLMs</span>
+                <span class="project-badge">Azure Vision</span>
+                <span class="project-badge">Docker</span>
+                <span class="project-badge">Selenium</span>
+              </div>
+              <div class="project-stats">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">70%</div>
+                      <div class="stat-label">Effort Reduced</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">90%</div>
+                      <div class="stat-label">Accuracy</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">60%</div>
+                      <div class="stat-label">Faster</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <span class="text-muted small"><strong>Company:</strong> Jorie AI | <strong>Role:</strong> Technical Lead</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="col-md-6 col-lg-4" data-category="telecom ai-ml">
+          <div class="project-card card">
+            <div class="project-image">
+              <i class="fas fa-network-wired"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Energy Savings Dashboard (SON-Flex)</h4>
+              <p class="card-text text-muted">
+                Intelligent Dynamic Energy Saving-4G application leveraging ML-driven cell adjustments to optimize energy use.
+                Features real-time energy monitoring, automated cell configurations, and predictive analytics for 5G/4G base stations.
+                Successfully delivered POC and drove consistent project wins.
+              </p>
+              <div class="mb-3">
+                <span class="project-badge">Python</span>
+                <span class="project-badge">Machine Learning</span>
+                <span class="project-badge">REST API</span>
+                <span class="project-badge">React</span>
+                <span class="project-badge">PostgreSQL</span>
+                <span class="project-badge">Docker</span>
+              </div>
+              <div class="project-stats">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">68%</div>
+                      <div class="stat-label">Energy Saved</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">$2M</div>
+                      <div class="stat-label">Annual Savings</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">80%</div>
+                      <div class="stat-label">Faster</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <span class="text-muted small"><strong>Company:</strong> HCLSoftware | <strong>Role:</strong> Senior Software Engineer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="col-md-6 col-lg-4" data-category="telecom ai-ml automation">
+          <div class="project-card card">
+            <div class="project-image">
+              <i class="fas fa-signal"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">ANA Platform & 5G Infrastructure</h4>
+              <p class="card-text text-muted">
+                Spearheaded development of ANA platform modules including SON-Flex API integrations,
+                dynamic Configuration Management for Huawei 5G infrastructure, and AL5R applications.
+                Implemented Massive MIMO 5G New Radio features for optimized network performance.
+              </p>
+              <div class="mb-3">
+                <span class="project-badge">Python</span>
+                <span class="project-badge">5G NR</span>
+                <span class="project-badge">REST API</span>
+                <span class="project-badge">Agile</span>
+                <span class="project-badge">CI/CD</span>
+                <span class="project-badge">Docker</span>
+              </div>
+              <div class="project-stats">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">68%</div>
+                      <div class="stat-label">Energy Saved</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">POC</div>
+                      <div class="stat-label">Success</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">Agile</div>
+                      <div class="stat-label">Methodology</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <span class="text-muted small"><strong>Company:</strong> HCLSoftware | <strong>Role:</strong> Senior Software Engineer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="col-md-6 col-lg-4" data-category="telecom automation">
+          <div class="project-card card">
+            <div class="project-image">
+              <i class="fas fa-tower-broadcast"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Network Automation & Monitoring System</h4>
+              <p class="card-text text-muted">
+                Automated remote configurations and fault detection system for telecom networks using Python, pandas, and Paramiko.
+                Implemented AWS CloudWatch-based logging and monitoring for real-time health and performance tracking.
+                Reduced network downtime significantly and improved operational efficiency.
+              </p>
+              <div class="mb-3">
+                <span class="project-badge">Python</span>
+                <span class="project-badge">Pandas</span>
+                <span class="project-badge">Paramiko</span>
+                <span class="project-badge">AWS CloudWatch</span>
+                <span class="project-badge">Linux</span>
+                <span class="project-badge">Shell Scripting</span>
+              </div>
+              <div class="project-stats">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">30%</div>
+                      <div class="stat-label">Downtime ↓</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">25%</div>
+                      <div class="stat-label">Revenue ↑</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">85%</div>
+                      <div class="stat-label">Uptime</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <span class="text-muted small"><strong>Company:</strong> BSNL | <strong>Role:</strong> Junior Telecom Officer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="col-md-6 col-lg-4" data-category="automation">
+          <div class="project-card card">
+            <div class="project-image">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">ETL Pipeline & BI Dashboard</h4>
+              <p class="card-text text-muted">
+                Automated ETL pipeline using Python and SQL for real-time data extraction and processing.
+                Built secure Flask-based web application with interactive dashboards, user authentication,
+                and actionable insights for Outokumpu's Global BI team. Automated manual reporting workflows.
+              </p>
+              <div class="mb-3">
+                <span class="project-badge">Python</span>
+                <span class="project-badge">Flask</span>
+                <span class="project-badge">SQL</span>
+                <span class="project-badge">ETL</span>
+                <span class="project-badge">React</span>
+                <span class="project-badge">PostgreSQL</span>
+              </div>
+              <div class="project-stats">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">15%</div>
+                      <div class="stat-label">Returns ↑</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">20%</div>
+                      <div class="stat-label">Costs ↓</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">Real-time</div>
+                      <div class="stat-label">Processing</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <span class="text-muted small"><strong>Company:</strong> WIPRO | <strong>Role:</strong> Project Engineer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="col-md-6 col-lg-4" data-category="healthcare ai-ml automation">
+          <div class="project-card card">
+            <div class="project-image">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">RAG Pipeline for Document Extraction</h4>
+              <p class="card-text text-muted">
+                Engineered high-accuracy Retrieval-Augmented Generation (RAG) pipeline using OCR, Azure Vision,
+                OpenAI LLMs, and Ollama for local inference. Enhanced document data extraction accuracy by 90%
+                for healthcare claims processing. Implemented asynchronous I/O and multiprocessing for 80% throughput increase.
+              </p>
+              <div class="mb-3">
+                <span class="project-badge">RAG</span>
+                <span class="project-badge">LangChain</span>
+                <span class="project-badge">OpenAI</span>
+                <span class="project-badge">Azure Vision</span>
+                <span class="project-badge">Ollama</span>
+                <span class="project-badge">FastAPI</span>
+              </div>
+              <div class="project-stats">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">90%</div>
+                      <div class="stat-label">Accuracy</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">80%</div>
+                      <div class="stat-label">Faster</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="stat-item">
+                      <div class="stat-number">40%</div>
+                      <div class="stat-label">Latency ↓</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <span class="text-muted small"><strong>Company:</strong> Jorie AI | <strong>Role:</strong> Technical Lead</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section>
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="mb-4">Want to See More?</h2>
+          <p class="lead mb-4">
+            Interested in working together? Let's discuss your next project.
+          </p>
+          <a href="/contact" class="btn btn-primary btn-lg me-3">
+            <i class="fas fa-envelope"></i> Contact Me
+          </a>
+          <a href="/about" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-user"></i> Learn More About Me
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock body %}
+
+{% block extra_js %}
+<script>
+  // Filter functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('[data-category]');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filterValue = this.getAttribute('data-filter');
+
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        // Filter projects
+        projectCards.forEach(card => {
+          if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 10);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Add transition styles
+    projectCards.forEach(card => {
+      card.style.transition = 'all 0.3s ease';
+    });
+  });
+</script>
+{% endblock extra_js %}

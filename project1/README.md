@@ -1,105 +1,138 @@
 # 🎯 Django Project 1
 
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
-[![Django](https://img.shields.io/badge/Django-latest-green.svg)](https://www.djangoproject.com/)
-[![UV](https://img.shields.io/badge/UV-Package%20Manager-blueviolet)](https://astral.sh/uv/)
+[![Django](https://img.shields.io/badge/Django-5.2.2-green.svg)](https://www.djangoproject.com/)
+[![DRF](https://img.shields.io/badge/DRF-3.16.0-red.svg)](https://www.django-rest-framework.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A modern Django project template leveraging [uv](https://astral.sh/uv/) for lightning-fast Python package management and development workflow. This project follows best practices for Django development and includes a comprehensive setup for both local development and containerized deployment.
+## 📄 Description
+
+A modern Django project template with a focus on best practices, security, and scalability. This project includes a complete REST API setup using Django REST Framework, JWT authentication, and separate development and production environments. Built with a multi-stage Docker configuration for optimal deployment and development workflows.
+
+### Key Components
+
+- **Django 5.2.2**: Latest stable Django release with enhanced security features
+- **Django REST Framework 3.16.0**: Full REST API capabilities with SimpleJWT authentication
+- **Multi-environment Setup**: Separate settings for development and production
+- **Docker Support**: Multi-stage build process for minimal production image size
+- **CORS Support**: Configured cross-origin resource sharing for API access
 
 ## ✨ Features
 
-- 🚀 Lightning-fast dependency management with UV
-- 🐳 Docker support for containerized deployment
-- 🔒 Secure settings configuration
-- 📊 Built-in testing and coverage setup
-- 🎨 Modern project structure
-- 📝 Comprehensive documentation
+- � **JWT Authentication**: Secure API endpoints with JWT tokens
+- 🌐 **REST API Ready**: Full DRF setup with browsable API interface
+- �️ **CORS Enabled**: Configured for cross-origin requests
+- 🐳 **Docker Optimized**: Multi-stage builds for minimal image size
+- 🔒 **Environment-based Settings**: Development and production configurations
+- � **Production-Ready**: Gunicorn server included for deployment
+- � **API Documentation**: Built-in DRF documentation support
 
 ## 🔧 Requirements
 
 - Python 3.12+
-- [uv](https://astral.sh/uv/) - Modern Python package manager
+- Docker (optional, for containerized deployment)
 - Git (optional, for version control)
 
 ## 🚀 Quick Start
 
-1. **Clone and Navigate**
+### Local Development
+
+1. **Clone and Set Up Environment**
 
    ```bash
    git clone <repository-url>
    cd project1
-   ```
+   python -m venv venv
 
-2. **Set Up Development Environment**
-
-   ```bash
-   # Install uv (if not already installed)
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-
-   # Create and activate virtual environment
-   uv venv
-
-   # On Linux/WSL/macOS:
-   source .venv/bin/activate
    # On Windows PowerShell:
-   .\.venv\Scripts\Activate.ps1
+   .\venv\Scripts\Activate.ps1
+   # On Linux/WSL/macOS:
+   source venv/bin/activate
 
-   # Install dependencies
-   uv pip install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
-3. **Initialize Database**
+2. **Configure Environment**
 
    ```bash
+   # Copy example environment file (if provided)
+   cp .env.example .env  # Create this if needed
+
+   # Initialize database
    python manage.py migrate
    python manage.py createsuperuser
    ```
 
-4. **Run Development Server**
+3. **Run Development Server**
 
    ```bash
    python manage.py runserver
    ```
 
-   Visit http://127.0.0.1:8000/ in your browser 🌐
+   - Admin Interface: http://127.0.0.1:8000/admin/
+   - API Root: http://127.0.0.1:8000/api/
+   - Documentation: http://127.0.0.1:8000/api/docs/
+
+### Docker Deployment
+
+```bash
+# Build the Docker image
+docker build -t django-project1 .
+
+# Run the container
+docker run -d -p 8080:8080 \
+  --name django-project1 \
+  -e DJANGO_SETTINGS_MODULE=core.settings.production \
+  django-project1
+```
 
 ## 📁 Project Structure
 
 ```
 project1/
-├── core/               # Main Django project configuration
-│   ├── settings.py     # Project settings
-│   ├── urls.py        # Main URL routing
-│   └── wsgi.py        # WSGI configuration
-├── myapp/             # Main application module
-│   ├── models.py      # Database models
-│   ├── views.py       # View controllers
-│   └── urls.py        # App URL routing
-├── manage.py          # Django management script
-├── requirements.txt    # Project dependencies
-└── db.sqlite3         # SQLite database
+├── core/                # Main project configuration
+│   ├── settings/       # Environment-specific settings
+│   │   ├── __init__.py
+│   │   ├── local.py    # Development settings
+│   │   └── production.py# Production settings
+│   ├── urls.py         # Main URL routing
+│   ├── asgi.py         # ASGI configuration
+│   └── wsgi.py         # WSGI configuration
+├── myapp/              # Main application
+│   ├── api/            # API endpoints
+│   ├── models.py       # Database models
+│   ├── serializers.py  # DRF serializers
+│   ├── views.py        # View controllers
+│   └── urls.py         # App URL patterns
+├── Dockerfile          # Multi-stage Docker build
+├── requirements.txt    # Python dependencies
+└── manage.py          # Django CLI
 ```
 
 ## 🛠️ Development Commands
 
-### Essential Commands
+### Common Tasks
 
 ```bash
-# Create new app
-python manage.py startapp <app_name>
+# Database Operations
+python manage.py makemigrations  # Create migrations
+python manage.py migrate         # Apply migrations
+python manage.py createsuperuser # Create admin user
 
-# Generate database migrations
-python manage.py makemigrations
+# Development Server
+python manage.py runserver       # Run development server
 
-# Apply migrations
-python manage.py migrate
+# Testing
+python manage.py test           # Run tests
+coverage run manage.py test    # Run tests with coverage
+coverage report               # View coverage report
 
 # Create admin user
-python manage.py createsuperuser
+uv run python manage.py createsuperuser
 ```
 
-### Package Management
+### Package Management (uv)
 
 ```bash
 # Install new package
@@ -163,11 +196,11 @@ docker images
 docker rmi -f $(docker images -aq)
 ```
 
-### Testing and Quality
+## 🧪 Testing and Quality
 
 ```bash
 # Run tests
-python manage.py test
+uv run python manage.py test
 
 # Run tests with coverage
 coverage run manage.py test
@@ -180,7 +213,7 @@ coverage report
 - **API Documentation**: http://127.0.0.1:8000/api/docs/ (if DRF is installed)
 - **Main Application**: http://127.0.0.1:8000/
 
-## � Troubleshooting
+## 🛠️ Troubleshooting
 
 ### Common Issues
 
@@ -234,7 +267,7 @@ coverage report
    - Maintain good test coverage
    - Use factories for test data
 
-## Additional Resources
+## 📚 Additional Resources
 
 - [Django Documentation](https://docs.djangoproject.com/)
 - [uv Documentation](https://github.com/astral-sh/uv)

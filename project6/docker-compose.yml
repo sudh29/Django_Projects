@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: django-blog-app
+    user: "1000:1000"  # Run as non-root user with UID 1000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput --clear &&
+             gunicorn --workers 3 --bind 0.0.0.0:8080 blog.wsgi:application"
+    volumes:
+      - .:/app
+      # Use named volumes for static and media files
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+      - ./blogapp/static:/app/blogapp/static  # Mount app static files
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - DJANGO_DEBUG=True
+      - DJANGO_SETTINGS_MODULE=blog.settings
+      - DJANGO_SECRET_KEY=your-secret-key-here
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    ports:
+      - "8000:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  static_volume:
+  media_volume:
