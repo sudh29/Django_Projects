@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About{% endblock title %}
+{% block aboutactive %}active{% endblock aboutactive %}
+
+{% block extra_css %}
+<style>
+  .about-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .profile-section {
+    padding: 4rem 0;
+  }
+
+  .profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #667eea;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin: 0 auto 2rem;
+    display: block;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 3rem;
+    padding-bottom: 2rem;
+    border-left: 2px solid #667eea;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #667eea;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px #667eea;
+  }
+
+  .timeline-year {
+    color: #667eea;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .skill-bar {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    height: 25px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .skill-progress {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: width 1s ease;
+  }
+
+  .card-custom {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+  }
+
+  .card-custom:hover {
+    transform: translateY(-5px);
+  }
+
+  .section-bg-light {
+    background-color: #f8f9fa;
+  }
+</style>
+{% endblock extra_css %}
+
+{% block body %}
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <h1 class="display-4 mb-3">About Me</h1>
+      <p class="lead">Technical Lead | AI-Driven Automation | Full-Stack Development</p>
+    </div>
+  </section>
+
+  <!-- Profile Section -->
+  <section class="profile-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-4 text-center mb-4 mb-lg-0">
+          <img src="{% static 'img/sudhanshu.png' %}" alt="Profile" class="profile-image">
+        </div>
+        <div class="col-lg-8">
+          <h2 class="mb-4">Hi, I'm Sudhanshu Chaudhary</h2>
+          <p class="lead">
+            <strong>Technical Lead</strong> with 7+ years' experience in AI-driven automation, scalable platforms,
+            and full-stack development across healthcare, telecom, and manufacturing industries.
+          </p>
+          <p>
+            I specialize in Python, data engineering, and ML/GenAI, with a proven track record of leading
+            cross-functional teams and delivering business-aligned solutions. My expertise spans building
+            scalable automation platforms, developing high-performance APIs, and implementing AI/ML solutions
+            that drive measurable business impact.
+          </p>
+          <p>
+            I'm passionate about leveraging cutting-edge technologies like Retrieval-Augmented Generation (RAG),
+            FastAPI microservices, and cloud-native architectures to solve complex real-world problems.
+            From reducing operational costs by millions to improving automation accuracy by 90%, I've consistently
+            delivered solutions that create tangible value.
+          </p>
+          <p>
+            Currently leading a team of 20+ engineers at Jorie AI, building next-generation RCM automation
+            platforms that transform healthcare operations. I'm always exploring new technologies, contributing
+            to open-source projects, and staying current with the latest trends in AI/ML and software engineering.
+          </p>
+          <div class="mt-4">
+            <a href="mailto:sudhanshuiet15@gmail.com" class="btn btn-primary me-2 mb-2">
+              <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="https://www.linkedin.com/in/sudh29" target="_blank" class="btn btn-outline-primary me-2 mb-2">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://www.github.com/sudh29" target="_blank" class="btn btn-outline-primary me-2 mb-2">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://sudh29-portfolio.pages.dev/" target="_blank" class="btn btn-outline-primary mb-2">
+              <i class="fas fa-globe"></i> Portfolio
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section-bg-light">
+    <div class="container py-5">
+      <h2 class="section-title">My Skills</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="mb-3"><i class="fas fa-code text-primary"></i> Programming Languages</h5>
+          <p class="mb-3">Python, C, C++, SQL, Shell Scripting</p>
+
+          <h5 class="mb-3"><i class="fas fa-brain text-primary"></i> AI & ML</h5>
+          <p class="mb-3">Generative AI, AI Agents, LangChain, RAG, Machine Learning, Deep Learning, Scikit-learn, OpenCV</p>
+
+          <h5 class="mb-3"><i class="fas fa-server text-primary"></i> Frameworks & Libraries</h5>
+          <p class="mb-3">FastAPI, Django, Flask, TensorFlow, PyTorch, NumPy, Pandas, Polars</p>
+
+          <h5 class="mb-3"><i class="fas fa-database text-primary"></i> Data & Databases</h5>
+          <p class="mb-3">MongoDB, MySQL, PostgreSQL, Redis</p>
+        </div>
+        <div class="col-md-6">
+          <h5 class="mb-3"><i class="fas fa-paint-brush text-primary"></i> Frontend</h5>
+          <p class="mb-3">React, TypeScript, JavaScript, HTML, CSS, Vite</p>
+
+          <h5 class="mb-3"><i class="fas fa-cloud text-primary"></i> DevOps & Cloud</h5>
+          <p class="mb-3">AWS, Terraform, Docker, Kubernetes, Podman</p>
+
+          <h5 class="mb-3"><i class="fas fa-tools text-primary"></i> Tools & Others</h5>
+          <p class="mb-3">Git, Jira, Swagger, Postman, Selenium, Linux</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section>
+    <div class="container py-5">
+      <h2 class="section-title">Experience & Education</h2>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="timeline-item">
+            <span class="timeline-year">JUL 2024 — Present</span>
+            <h4>Technical Lead</h4>
+            <p class="text-muted mb-2"><strong>Jorie AI</strong> — Noida, India</p>
+            <p>
+              • Led and contributed to building a next-generation RCM automation platform, reducing manual effort by 70% and accelerating claims processing across major U.S. healthcare networks<br>
+              • Directed and contributed hands-on within a cross-functional team of 20+ engineers, driving end-to-end delivery of the Jorie Platform through architecture design, code reviews, and performance optimization<br>
+              • Delivered full-cycle automation of RCM workflows including Pre-Authorization, Eligibility Verification, Charges, Payment Posting, Claims Status, and Denials cutting operational turnaround by 60%<br>
+              • Engineered a high-accuracy Retrieval-Augmented Generation (RAG) pipeline using OCR, Azure Vision, OpenAI LLMs, and Ollama for local inference, enhancing document data extraction accuracy by 90%<br>
+              • Increased automation throughput by 80% and reduced API latency by 40% through asynchronous I/O, multithreading, and multiprocessing in FastAPI-based microservices<br>
+              • Developed and deployed scalable, containerized automation services using FastAPI, Selenium, REST APIs, and Docker, enabling real-time monitoring and zero-downtime deployments<br>
+              • Authored and maintained comprehensive HLDs, LLDs, and API documentation, ensuring scalable architecture, reusability, and alignment with business objectives
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-year">JUL 2021 — JUL 2024</span>
+            <h4>Senior Software Engineer</h4>
+            <p class="text-muted mb-2"><strong>HCLSoftware</strong> — Noida, India</p>
+            <p>
+              • Pioneered a new feature for Massive MIMO 5G New Radio base stations, reducing energy wastage by 68%<br>
+              • Delivered the Energy Savings Dashboard (SON-Flex app), achieving a successful POC and driving consistent project wins and customer satisfaction<br>
+              • Optimized the iDES-4G SON-Flex app by streamlining API calls and concurrency, cutting cycle time by 80%<br>
+              • Designed and built the Intelligent Dynamic Energy Saving-4G application, leveraging ML-driven cell adjustments to optimize energy use and deliver $2M in annual OPEX savings<br>
+              • Spearheaded development of ANA platform modules, integrating SON-Flex APIs into RACO-L, designing dynamic CMs for Huawei, enhancing CICO-L feedback for NR cells, and developing Huawei 5G Infra & AL5R apps under Agile methodologies<br>
+              • Proactively mitigated customer issues by applying TDD, root cause analysis, log analysis, and troubleshooting, resolving bugs in just 15% of the usual time<br>
+              • Automated the integration test suite and implemented a CI/CD pipeline for microservices-based applications, ensuring robust validation and faster deployments
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-year">NOV 2017 — AUG 2019</span>
+            <h4>Junior Telecom Officer</h4>
+            <p class="text-muted mb-2"><strong>BSNL</strong> — Rajkot, India</p>
+            <p>
+              • Automated remote configurations and fault detection using Python, pandas, and Paramiko, streamlining network operations and reducing manual intervention<br>
+              • Cut network downtime by 30%, boosting operational efficiency and driving a 25% increase in revenue<br>
+              • Implemented AWS CloudWatch-based logging and monitoring, enabling real-time health and performance tracking<br>
+              • Improved service reliability to 85% uptime, raising customer satisfaction to 90%+
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-year">SEP 2015 — SEP 2016</span>
+            <h4>Project Engineer</h4>
+            <p class="text-muted mb-2"><strong>WIPRO</strong> — Pune, India</p>
+            <p>
+              • Developed an automated ETL pipeline using Python and SQL, streamlining real-time data extraction and processing for Outokumpu's Global BI team<br>
+              • Built a secure Flask-based web application with interactive dashboards, integrating user authentication to deliver actionable insights<br>
+              • Increased returns by 15% and reduced operational costs by 20% by automating manual reporting workflows
+            </p>
+          </div>
+
+          <!-- Education -->
+          <div class="timeline-item">
+            <span class="timeline-year">2019 — 2021</span>
+            <h4>Master of Technology, Telecom Technology and Management</h4>
+            <p class="text-muted mb-2"><strong>Indian Institute of Technology, Delhi</strong></p>
+            <p>
+              • Specialized in Telecom Technology and Management<br>
+              • MHRD Scholarship: Awarded scholarship for securing AIR 95 in GATE-2019 (IN)
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-year">2011 — 2015</span>
+            <h4>Bachelor of Technology (Hons.), Electronics and Instrumentation</h4>
+            <p class="text-muted mb-2"><strong>Institute of Engineering and Technology, Lucknow</strong></p>
+            <p>
+              • Graduated with Honors in Electronics and Instrumentation
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section class="section-bg-light">
+    <div class="container py-5">
+      <h2 class="section-title">Scholastic Achievements</h2>
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="card card-custom p-4">
+            <div class="d-flex align-items-center mb-3">
+              <i class="fas fa-trophy fa-2x text-primary me-3"></i>
+              <div>
+                <h4 class="mb-1">MHRD Scholarship</h4>
+                <p class="text-muted mb-0">Awarded scholarship for securing AIR 95 in GATE-2019 (IN)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock body %}
