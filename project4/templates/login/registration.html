@@ -1,0 +1,73 @@
+{% extends "login/base.html" %}
+{% load static %}
+{% load form_filters %}
+{% block body_block %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          {% if registered %}
+          <div class="text-center">
+            <h3 class="mb-2">Registration complete</h3>
+            <p class="text-muted">
+              Your account was created successfully. You may now
+              <a href="{% url 'login:user_login' %}">log in</a>.
+            </p>
+          </div>
+          {% else %}
+          <h3 class="card-title mb-3">Create an account</h3>
+          <p class="text-muted small">
+            Fill out the form below to create a new account.
+          </p>
+
+          {% if form_errors %}
+          <div class="alert alert-danger" role="alert">{{ form_errors }}</div>
+          {% endif %}
+
+          <form enctype="multipart/form-data" method="POST" novalidate>
+            {% csrf_token %} {% for field in user_form %}
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label"
+                >{{ field.label }}{% if field.field.required %}
+                <span class="text-danger">*</span>{% endif %}</label
+              >
+              {{ field|addclass:"form-control" }} {% if field.help_text %}
+              <div class="form-text">{{ field.help_text }}</div>
+              {% endif %} {% for error in field.errors %}
+              <div class="invalid-feedback d-block">{{ error }}</div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+
+            <hr />
+
+            {% for field in profile_form %}
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label"
+                >{{ field.label }}</label
+              >
+              {{ field|addclass:"form-control" }} {% if field.help_text %}
+              <div class="form-text">{{ field.help_text }}</div>
+              {% endif %} {% for error in field.errors %}
+              <div class="invalid-feedback d-block">{{ error }}</div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <a href="{% url 'login:user_login' %}" class="btn btn-link"
+                >Already have an account?</a
+              >
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
