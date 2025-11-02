@@ -19,6 +19,7 @@ numpy==2.3.0
 packaging==25.0
 pandas==2.3.0
 pathspec==0.12.1
+pillow==12.0.0
 platformdirs==4.3.8
 pre-commit==4.2.0
 pycodestyle==2.13.0
