@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access Records | Django Project</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/mystyle.css' %}"
+    />
+
+    <style>
+      .hero-section {
+        background: linear-gradient(135deg, #2d7af3, #44bd32);
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+      }
+      .records-card {
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+      }
+      .records-card:hover {
+        transform: translateY(-5px);
+      }
+      .table-responsive {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+      }
+      .stats-card {
+        border-radius: 10px;
+        transition: transform 0.2s;
+      }
+      .stats-card:hover {
+        transform: translateY(-3px);
+      }
+      .feature-image {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Django Project</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/firstapp/">First App</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index/">Two App</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/form/">Form</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/">Users</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+      <div class="container">
+        <h1 class="display-4">Access Records</h1>
+        <p class="lead">Track and monitor site access history</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mb-5">
+      <div class="row">
+        <!-- Access Records Table -->
+        <div class="col-lg-8">
+          <div class="card records-card">
+            <div class="card-body">
+              <h3 class="card-title mb-4">Site Access History</h3>
+
+              {% if access_records %}
+              <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Site Name</th>
+                      <th>Date Accessed</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for acc in access_records %}
+                    <tr>
+                      <td>
+                        <i class="bi bi-globe me-2"></i>
+                        {{ acc.name }}
+                      </td>
+                      <td>
+                        <i class="bi bi-calendar-event me-2"></i>
+                        {{ acc.date }}
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-info-circle"></i> Details
+                        </button>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% else %}
+              <div class="alert alert-info" role="alert">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                No access records found!
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <!-- Quick Stats -->
+          <div class="card records-card mb-4">
+            <div class="card-body">
+              <h4 class="card-title mb-3">Quick Stats</h4>
+              <div class="row g-2">
+                <div class="col-6">
+                  <div class="card stats-card bg-light">
+                    <div class="card-body text-center">
+                      <i class="bi bi-eye fs-4 text-primary"></i>
+                      <h5 class="mt-2 mb-0">{{ access_records|length }}</h5>
+                      <small class="text-muted">Total Records</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card stats-card bg-light">
+                    <div class="card-body text-center">
+                      <i class="bi bi-clock-history fs-4 text-primary"></i>
+                      <h5 class="mt-2 mb-0">Today</h5>
+                      <small class="text-muted">Last Update</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Image -->
+          <div class="card records-card">
+            <div class="card-body">
+              <h4 class="card-title mb-3">Featured Image</h4>
+              <img
+                src="{% static 'images/pic.jpg' %}"
+                alt="Featured"
+                class="feature-image w-100"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+      <div class="container text-center">
+        <p class="mb-0">© 2025 Django Project. All rights reserved.</p>
+        <small class="text-muted">Built with Django and Bootstrap</small>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </body>
+</html>

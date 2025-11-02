@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User List | Django Project</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/mystyle.css' %}"
+    />
+
+    <style>
+      .user-card {
+        transition: transform 0.2s ease-in-out;
+        margin-bottom: 1rem;
+      }
+      .user-card:hover {
+        transform: translateY(-5px);
+      }
+      .hero-section {
+        background: linear-gradient(135deg, #2d7af3, #44bd32);
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+      }
+      .profile-img {
+        max-width: 100px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Django Project</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/firstapp/">First App</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index/">Two App</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/form/">Form</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/user/">Users</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+      <div class="container">
+        <h1 class="display-4">User Directory</h1>
+        <p class="lead">Browse through our community members</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mb-5">
+      {% if users %}
+      <div class="row">
+        {% for per in users %}
+        <div class="col-md-4">
+          <div class="card user-card shadow-sm">
+            <div class="card-body text-center">
+              <img
+                src="{% static 'images/pic.jpg' %}"
+                alt="Profile"
+                class="profile-img"
+              />
+              <h5 class="card-title">
+                {{ per.first_name }} {{ per.last_name }}
+              </h5>
+              <p class="card-text">
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:{{ per.email }}" class="text-decoration-none"
+                  >{{ per.email }}</a
+                >
+              </p>
+              <button
+                class="btn btn-primary btn-sm"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#userDetails{{ forloop.counter }}"
+                aria-expanded="false"
+              >
+                View Details
+              </button>
+              <div class="collapse mt-3" id="userDetails{{ forloop.counter }}">
+                <div class="card card-body text-start">
+                  <p class="mb-1">
+                    <strong>Full Name:</strong> {{ per.first_name }} {{
+                    per.last_name }}
+                  </p>
+                  <p class="mb-1"><strong>Email:</strong> {{ per.email }}</p>
+                  <p class="mb-0">
+                    <strong>Member Since:</strong> November 2025
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-info text-center" role="alert">
+        No users found in the database.
+      </div>
+      {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+      <div class="container text-center">
+        <p class="mb-0">© 2025 Django Project. All rights reserved.</p>
+        <small class="text-muted">Built with Django and Bootstrap</small>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+  </body>
+</html>
